@@ -7,19 +7,20 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 
- * <Replace this with a short description of the class.>
- * 
- * @author Giulio
- */
+ * @ClassName PlaySound
+ * @Description: Sound player
+ * @Author Group
+ * @Date 2021-04-26
+ * @Version 1.0
+ **/
 public class PlaySound {
 
 	MixedPlayer player;
     private InputStream waveStream;
 
 
-    private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
-//	private final int EXTERNAL_BUFFER_SIZE = 4096;
+//    private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
+	private final int EXTERNAL_BUFFER_SIZE = 16384;
 
     /**
      * CONSTRUCTOR
@@ -68,13 +69,15 @@ public class PlaySound {
 	    	if (player.statusId == 1) {
 				readBytes = audioInputStream.read(audioBuffer, 0,
 						audioBuffer.length);
+
 				if (player.audioProgress == 0) {
 					player.audioProgress = 1;
-					Thread.sleep(1);
+//					Thread.sleep(1);
 				}
 				if (readBytes >= 0){
 					dataLine.write(audioBuffer, 0, readBytes);
 				}
+
 			} else if (player.statusId == 0) {
 				Thread.sleep(1);
 			} else if (player.statusId == -1) {

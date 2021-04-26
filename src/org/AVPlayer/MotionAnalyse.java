@@ -5,7 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-
+/**
+ * @ClassName MotionAnalyse
+ * @Description: Get motion weight
+ * @Author Group
+ * @Date 2021-04-26
+ * @Version 1.0
+ **/
 public class MotionAnalyse {
 //    ArrayList<Integer> breakMat = new ArrayList<>();
     ArrayList<Double> motionMat = new ArrayList<>();

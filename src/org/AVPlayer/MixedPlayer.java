@@ -10,7 +10,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
+/**
+ * @ClassName MixedPlayer
+ * @Description: AVPlayer
+ * @Author Group
+ * @Date 2021-04-26
+ * @Version 1.0
+ **/
 public class MixedPlayer {
     JFrame frame;
     JLabel lbIm1;
@@ -34,6 +40,8 @@ public class MixedPlayer {
         public void actionPerformed(ActionEvent event) {
             if (actionId == 1) {
                 statusId = statusId==1?0:statusId==0?1:null;
+                String newText = pauseBtn.getText()=="PAUSE"?"CONTINUE":"PAUSE";
+                pauseBtn.setText(newText);
                 System.out.println(statusId);
             } else if (actionId == 2) {
                 statusId = -1;
@@ -80,7 +88,7 @@ public class MixedPlayer {
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
-//        frame.getContentPane().add(pauseBtn, c);
+        frame.getContentPane().add(pauseBtn, c);
         c.gridx = 1;
         c.gridy = 1;
         frame.getContentPane().add(terminateBtn, c);

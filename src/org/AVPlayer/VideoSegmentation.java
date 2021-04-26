@@ -7,7 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-
+/**
+ * @ClassName VideoSegmentation
+ * @Description: Make segment breaks
+ * @Author Group
+ * @Date 2021-04-26
+ * @Version 1.0
+ **/
 public class VideoSegmentation {
     double preImgR[] = new double[height*width];
     double preImgG[] = new double[height*width];
