@@ -103,27 +103,64 @@ public class MotionAnalyse {
 
     public void getMotionMat(VideoSegmentation vs, String path) {
         double[] breakScores = new double[vs.breakPoints.size()-1];
+        double[] frameScores = new double[FPS*FULL_TIME];
+        double[] frameDiff = new double[FPS*FULL_TIME];
+
+        int k = 0;
         for (int i = 0; i < vs.breakPoints.size()-1; i++) {
-            int a = vs.breakPoints.get(i);
+            System.out.println("Processing break "+i+" out of "+vs.breakPoints.size());
+            int a = vs.breakPoints.get(i)+1;
             double breakScore = 0;
-            for (int j = a; j < vs.breakPoints.get(i+1); j++) {
+            int breakBlock = 0;
+            double frameScoreBefore = 0;
+            double frameScoreThis = 0;
+            for (int j = a; j <= vs.breakPoints.get(i+1); j++) {
                 if (j != vs.breakPoints.get(i) && (j-vs.breakPoints.get(i))%5==0) {
-                    generateMat(path+"frame"+a+".rgb", path+"frame"+i+".rgb");
+                    int frameScore = 0;
+                    int frameBlock = 0;
+                    generateMat(path+"frame"+a+".rgb", path+"frame"+j+".rgb");
+                    for (int ii = 0; ii < height/10; ii++) {
+                        for (int jj = 0; jj < width/10; jj++) {
+                            breakScore += Math.abs(preAvg[ii][jj] - postAvg[ii][jj]);
+                            frameScore += Math.abs(preAvg[ii][jj] - postAvg[ii][jj]);
+                            breakBlock++;
+                            frameBlock++;
+                        }
+                    }
+                    if (frameScoreBefore != 0 && (1.0*frameScore/frameBlock-frameScoreBefore) > 10) {
+                        System.out.println(a+"-"+j+": "+(1.0*frameScore/frameBlock-frameScoreBefore));
+                    }
+                    frameScoreBefore = 1.0*frameScore/frameBlock;
+                    a = j;
+                }
+            }
+            breakScores[i] = 1.0*breakScore/breakBlock;
+        }
+        for (int i = 0; i < breakScores.length; i++) {
+            System.out.println(breaks[i]+"-"+breaks[i+1]+": "+breakScores[i]);
+        }
+        for (int i = 0; i < frameScores.length-1; i++) {
+            frameDiff[i] = frameScores[i+1] - frameScores[i];
+        }
+    }
+    public void getMotionMatTest(VideoSegmentation vs, String path) {
+            int a = 2583;
+            double breakScore = 0;
+            for (int j = 2583; j < 2621; j++) {
+//                double breakScore = 0;
+                if (j != 2583 && (j-2583)%5==0) {
+                    generateMat(path+"frame"+a+".rgb", path+"frame"+j+".rgb");
                     for (int ii = 0; ii < height/10; ii++) {
                         for (int jj = 0; jj < width/10; jj++) {
                             breakScore += Math.abs(preAvg[ii][jj] - postAvg[ii][jj]);
                         }
                     }
-                    a = i;
+                    a = j;
                 }
             }
-            breakScores[i] = 1.0*breakScore/(vs.breakPoints.get(i+1)-vs.breakPoints.get(i));
-        }
-        for (int i = 0; i < breakScores.length; i++) {
-            System.out.println(breakScores[i]);
-        }
-    }
+        System.out.println(breakScore/(2621.0-2583.0));
 
+    }
     public static void main(String[] args) {
         String rootPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
         String pathRGB = rootPath + "frames_rgb\\meridian\\";

@@ -136,15 +136,21 @@ public class MixedPlayer {
     public static void main(String[] args) throws InterruptedException {
         player = new MixedPlayer();
 
-        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-        String audioPath = rootpath + "audio\\meridian.wav";
-        String videoPath = rootpath + "frames_rgb\\meridian\\";
-        String[] input = {videoPath+"frame0.rgb", videoPath};
+//        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
+//        String audioPath = rootpath + "audio\\meridian.wav";
+//        String videoPath = rootpath + "frames_rgb\\meridian\\";
+//
+//
+//        String[] input = {videoPath+"frame0.rgb", videoPath};
+//
+//        player.init(input);
+//        Thread audio= new Thread(new PlayAudio(audioPath, player));
+//        Thread video = new Thread(new PlayVideo(videoPath, player));
+//        audio.start();
+//        video.start();
 
-        player.init(input);
-        Thread audio= new Thread(new PlayAudio(audioPath, player));
-        Thread video = new Thread(new PlayVideo(videoPath, player));
-        audio.start();
-        video.start();
+        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\";
+        String audioPath = rootpath + "meridian.wav";
+        String videoPath = rootpath + "frames_rgb\\";
     }
 }
