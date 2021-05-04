@@ -115,7 +115,7 @@ public class MotionAnalyse {
                 if (j != breakPoints.get(i) && (j-breakPoints.get(i))%5==0) {
                     double frameScore = 0;
                     int frameBlock = 0;
-                    generateMat(path+"frame"+a+".rgb", path+"frame"+j+".rgb");
+                    generateMat(new File(path, "frame"+a+".rgb").getPath(), new File(path, "frame"+j+".rgb").getPath());
                     for (int ii = 0; ii < height/10; ii++) {
                         for (int jj = 0; jj < width/10; jj++) {
                             breakScore += Math.abs(preAvg[ii][jj] - postAvg[ii][jj]);
@@ -175,15 +175,15 @@ public class MotionAnalyse {
     }
 
     public static void main(String[] args) {
-//        String rootPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-//        String pathRGB = rootPath + "frames_rgb\\meridian\\";
-//        MotionAnalyse motionAnalyse = new MotionAnalyse();
-//        ArrayList<Integer> breakPoints = new ArrayList<>();
-//        //        videoSegmentation.getBreakPoints(path);
-//        for (int i = 0; i < breaks.length; i++) {
-//            breakPoints.add(breaks[i]);
-//        }
-//        motionAnalyse.getMotionMat(breakPoints, pathRGB);
+        String rootPath = Consts.datasetRootName;
+        String pathRGB = Consts.meridianFrames;
+        MotionAnalyse motionAnalyse = new MotionAnalyse();
+        VideoSegmentation videoSegmentation = new VideoSegmentation();
+        //        videoSegmentation.getBreakPoints(path);
+        for (int i = 0; i < breaks.length; i++) {
+            videoSegmentation.breakPoints.add(breaks[i]);
+        }
+        motionAnalyse.getMotionMat(videoSegmentation, pathRGB);
     }
 
 }

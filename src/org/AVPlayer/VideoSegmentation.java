@@ -34,8 +34,12 @@ public class VideoSegmentation {
     ArrayList<Integer> breakPoints = new ArrayList<>();
 
 
+    public VideoSegmentation(String fileName) {
+        System.load(fileName);
+    }
+
     public VideoSegmentation() {
-        System.load("D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\code\\opencv\\x64\\opencv_java451.dll");
+        System.load(Consts.opencvFileName);
     }
 
     public void generateMat(String imgPath1, String imgPath2){
