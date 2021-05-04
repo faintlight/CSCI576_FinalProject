@@ -1,4 +1,6 @@
-package org.AVPlayer;
+package org.SummaryPlayer;
+
+import org.AVPlayer.PlayWaveException;
 
 import javax.sound.sampled.*;
 import javax.sound.sampled.DataLine.Info;
@@ -15,7 +17,7 @@ import java.io.InputStream;
  **/
 public class PlaySound {
 
-	MixedPlayer player;
+	GeneratedPlayer player;
     private InputStream waveStream;
 
 
@@ -25,7 +27,7 @@ public class PlaySound {
     /**
      * CONSTRUCTOR
      */
-    public PlaySound(InputStream waveStream, MixedPlayer player) {
+    public PlaySound(InputStream waveStream, GeneratedPlayer player) {
 	this.waveStream = waveStream;
 	this.player = player;
     }
