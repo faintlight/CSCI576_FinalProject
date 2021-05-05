@@ -1,7 +1,11 @@
 package org.SummaryPlayer;
 
+<<<<<<< HEAD
 
 import org.AVPlayer.WeightAssignment;
+=======
+import org.*;
+>>>>>>> b676e5e... refactor
 import org.AVPlayer.WriteAudio;
 import org.AVPlayer.WriteVideo;
 
@@ -152,6 +156,7 @@ public class GeneratedPlayer {
     public static void main(String[] args) throws InterruptedException {
         player = new GeneratedPlayer();
 
+<<<<<<< HEAD
         String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
         String audioPath = rootpath + "audio\\meridian.wav";
         String videoPath = rootpath + "frames_rgb\\meridian\\";
@@ -159,6 +164,15 @@ public class GeneratedPlayer {
         String audioPathO = rootpathO + "meridian.wav";
         String videoPathO = rootpathO + "frames_rgb\\";
         String[] inputO = {videoPathO+"frame0.rgb", videoPathO};
+=======
+        String rootpath = Consts.datasetRootName;
+        String audioPath = new File(Consts.audioRootName, "concert.wav").getPath();
+        String videoPath = Consts.concertFrames;
+        String rootpathO = Consts.outRootName;
+        String audioPathO = new File(rootpathO, "concert.wav").getPath();
+        String videoPathO = new File(rootpathO, "concert").getPath();
+        String[] inputO = {new File(videoPathO, "frame0.rgb").getPath(), videoPathO};
+>>>>>>> b676e5e... refactor
 
         WeightAssignment weightAssignment = new WeightAssignment();
         ArrayList<Integer> resultPoints = weightAssignment.getResults(videoPath);

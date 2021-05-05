@@ -1,5 +1,7 @@
 package org.AVPlayer;
 
+import org.Consts;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -147,9 +149,9 @@ public class VideoSegmentation {
         for (int i = 0; i < FPS * FULL_TIME-1; i++) {
             String imgPath1 = originPath + "frame" + i + ".rgb";
             String imgPath2 = originPath + "frame" + (i+1) + ".rgb";
-            generateMat(imgPath1, imgPath2);
-            diffOrigin[i] = analyseFrames();
-            diffHisto[i] = analyseHisto();
+            this.generateMat(imgPath1, imgPath2);
+            diffOrigin[i] = this.analyseFrames();
+            diffHisto[i] = this.analyseHisto();
             if (i % 1000 == 0) {
                 System.out.println("Segment finished: " + i);
             }
@@ -173,15 +175,15 @@ public class VideoSegmentation {
 //    }
 
     public void getBreakPoints(String path) {
-        getFramesDiff(path);
-        breakPoints.add(0);
+        this.getFramesDiff(path);
+        this.breakPoints.add(0);
         for (int i = 0; i < FPS * FULL_TIME-1; i++) {
             if (diffOrigin[i] > THRESHOLD1 || diffHisto[i] > THRESHOLD2) {
-                breakPoints.add(i);
+                this.breakPoints.add(i);
             }
 //            System.out.println("FRAME:"+i+" ORIGIN:"+diffOrigin[i]+" HISTO:"+diffHisto[i]);
         }
-        breakPoints.add(16199);
+        this.breakPoints.add(16199);
     }
     public void clearHisto() {
         for (int x = 0; x < 16; x++) {

@@ -1,5 +1,6 @@
 package org.AVPlayer;
 
+import java.io.File;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +57,7 @@ public class PlayVideo implements Runnable{
             for (int i = 0; i < FPS * FULL_TIME; i++) {
                 if (player.statusId == 1) {
                     startTime = (i==0||iConBU!=iCon) ? (System.nanoTime()) : startTime;
-                    String imgPath = folderPath + "frame" + i + ".rgb";
+                    String imgPath = new File(folderPath, "frame" + i + ".rgb").getPath();
                     BufferedImage nextImg = player.showIms(imgPath);
                     player.lbIm1.setIcon(new ImageIcon(nextImg));
                     player.text.setText((i)/30+"/"+(FPS * FULL_TIME)/30);

@@ -1,5 +1,6 @@
 package org.AVPlayer;
 
+import org.*;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -182,6 +183,7 @@ public class WriteAudio {
 
     public static void main(String[] args) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
 //        String audioPath = rootpath + "audio\\meridian.wav";
 //        String outputPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\meridian.wav";
@@ -201,6 +203,10 @@ public class WriteAudio {
         String rootpath = args[0];
         String audioPath = rootpath + args[1];
         String outputPath = rootpath + args[2];
+=======
+        String audioPath = new File(Consts.audioRootName, args[0] + ".wav").getPath();
+        String outputPath = new File(Consts.outRootName, args[0] + ".wav").getPath();
+>>>>>>> b676e5e... refactor
         ArrayList<Integer> breaks = new ArrayList<>();
         breaks.add(0);
         breaks.add(100);

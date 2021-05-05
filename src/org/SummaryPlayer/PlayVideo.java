@@ -1,5 +1,6 @@
 package org.SummaryPlayer;
 
+import java.io.File;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
@@ -39,27 +40,12 @@ public class PlayVideo implements Runnable{
                     break;
                 }
             }
-//            for (int i = 0; i < FPS * FULL_TIME; i++) {
-//                    if (player.statusId == 1) {
-//                        startTime = i == 0 ? (System.nanoTime()) : startTime;
-//                        String imgPath = folderPath + "frame" + i + ".rgb";
-//                        BufferedImage nextImg = player.showIms(imgPath);
-//                        player.lbIm1.setIcon(new ImageIcon(nextImg));
-//                        player.videoProgress = (float) 1.0 * i / (FPS * FULL_TIME);
-//                        TimeUnit.MICROSECONDS.sleep(((i + 1) * 33333) - (System.nanoTime() / 1000 - startTime / 1000));
-//                    } else if (player.statusId == 0) {
-//                        i = i - 1;
-//                        Thread.sleep(1);
-//                    } else if (player.statusId == -1) {
-//                        System.exit(0);
-//                    }
-//            }
             int iCon = 0;
             int iConBU = 0;
             for (int i = 0; i < totFrame; i++) {
                 if (player.statusId == 1) {
                     startTime = (i==0||iConBU!=iCon) ? (System.nanoTime()) : startTime;
-                    String imgPath = folderPath + "frame" + i + ".rgb";
+                    String imgPath = new File(folderPath, "frame" + i + ".rgb").getPath();
                     BufferedImage nextImg = player.showIms(imgPath);
                     player.lbIm1.setIcon(new ImageIcon(nextImg));
                     player.text.setText((i)/30+"/"+(totFrame)/30);
