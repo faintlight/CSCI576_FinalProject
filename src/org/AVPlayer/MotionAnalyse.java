@@ -1,7 +1,5 @@
 package org.AVPlayer;
 
-import org.Consts;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -177,15 +175,15 @@ public class MotionAnalyse {
     }
 
     public static void main(String[] args) {
-        String rootPath = Consts.datasetRootName;
-        String pathRGB = Consts.meridianFrames;
-        MotionAnalyse motionAnalyse = new MotionAnalyse();
-        VideoSegmentation videoSegmentation = new VideoSegmentation();
-        //        videoSegmentation.getBreakPoints(path);
-        for (int i = 0; i < breaks.length; i++) {
-            videoSegmentation.breakPoints.add(breaks[i]);
-        }
-        motionAnalyse.getMotionMat(videoSegmentation, pathRGB);
+//        String rootPath = Consts.datasetRootName;
+//        String pathRGB = Consts.meridianFrames;
+//        MotionAnalyse motionAnalyse = new MotionAnalyse();
+//        VideoSegmentation videoSegmentation = new VideoSegmentation();
+//        //        videoSegmentation.getBreakPoints(path);
+//        for (int i = 0; i < breaks.length; i++) {
+//            videoSegmentation.breakPoints.add(breaks[i]);
+//        }
+//        motionAnalyse.getMotionMat(videoSegmentation, pathRGB);
     }
 
 }
