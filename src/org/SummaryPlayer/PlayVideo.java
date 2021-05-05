@@ -62,6 +62,7 @@ public class PlayVideo implements Runnable{
                     String imgPath = folderPath + "frame" + i + ".rgb";
                     BufferedImage nextImg = player.showIms(imgPath);
                     player.lbIm1.setIcon(new ImageIcon(nextImg));
+                    player.text.setText((i)/30+"/"+(totFrame)/30);
                     player.videoProgress = (float) 1.0 * i / (FPS * FULL_TIME);
                     iConBU = iCon;
                     TimeUnit.MICROSECONDS.sleep(((i-iCon+1)*33333)-(System.nanoTime()/1000-startTime/1000));

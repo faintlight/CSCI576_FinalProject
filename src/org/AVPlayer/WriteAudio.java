@@ -181,20 +181,20 @@ public class WriteAudio {
     }
 
     public static void main(String[] args) {
-        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-        String audioPath = rootpath + "audio\\meridian.wav";
-        String outputPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\meridian.wav";
-        ArrayList<Integer> breaks = new ArrayList<>();
-        breaks.add(0);
-        breaks.add(100);
-        breaks.add(1200);
-        breaks.add(1400);
-        breaks.add(5500);
-        breaks.add(6000);
-        breaks.add(7000);
-        breaks.add(7500);
-
-        WriteAudio wa = new WriteAudio(breaks, audioPath, outputPath);
-        wa.saveAudio();
+//        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
+//        String audioPath = rootpath + "audio\\meridian.wav";
+//        String outputPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\meridian.wav";
+//        ArrayList<Integer> breaks = new ArrayList<>();
+//        breaks.add(0);
+//        breaks.add(100);
+//        breaks.add(1200);
+//        breaks.add(1400);
+//        breaks.add(5500);
+//        breaks.add(6000);
+//        breaks.add(7000);
+//        breaks.add(7500);
+//
+//        WriteAudio wa = new WriteAudio(breaks, audioPath, outputPath);
+//        wa.saveAudio();
     }
 }

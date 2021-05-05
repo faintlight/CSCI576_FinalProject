@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
 /**
  * @ClassName MixedPlayer
  * @Description: AVPlayer
@@ -22,6 +23,7 @@ public class MixedPlayer {
     JLabel lbIm1;
     JButton terminateBtn = new JButton("TERMINATE");
     JButton pauseBtn = new JButton("PAUSE");
+    JLabel text = new JLabel("0/0");
     static int width = 320;
     static int height = 180;
     int statusId = 1; //1: play, 0: pause, -1: cease
@@ -46,6 +48,7 @@ public class MixedPlayer {
             } else if (actionId == 2) {
                 statusId = -1;
                 System.out.println(statusId);
+                System.exit(0);
             }
         }
     }
@@ -75,6 +78,7 @@ public class MixedPlayer {
         terminateBtn.setBackground(new Color(59, 89, 182));
         terminateBtn.setFont(new Font("Courier", Font.BOLD, 20));
         terminateBtn.setBorder(BorderFactory.createRaisedBevelBorder());
+        text.setFont(new Font("Courier", Font.BOLD, 20));
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -88,10 +92,17 @@ public class MixedPlayer {
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
+        frame.getContentPane().add(text, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 1;
         frame.getContentPane().add(pauseBtn, c);
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 2;
         frame.getContentPane().add(terminateBtn, c);
+
 
         frame.pack();
         frame.setVisible(true);
@@ -136,15 +147,36 @@ public class MixedPlayer {
     public static void main(String[] args) throws InterruptedException {
         player = new MixedPlayer();
 
-        String rootpath = args[0];
-        String audioPath = rootpath + args[1];
-        String videoPath = rootpath + args[2];
+        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
+        String audioPath = rootpath + "audio\\soccer.wav";
+        String videoPath = rootpath + "frames_rgb\\soccer\\";
+//        String rootpathO = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\";
+//        String audioPathO = rootpathO + "meridian.wav";
+//        String videoPathO = rootpathO + "frames_rgb\\";
         String[] input = {videoPath+"frame0.rgb", videoPath};
-
+//        String[] inputO = {videoPathO+"frame0.rgb", videoPathO};
         player.init(input);
         Thread audio= new Thread(new PlayAudio(audioPath, player));
         Thread video = new Thread(new PlayVideo(videoPath, player));
         audio.start();
         video.start();
+//
+//        ArrayList<Integer> breaks = new ArrayList<>();
+//        breaks.add(2);
+//        breaks.add(102);
+//        breaks.add(1200);
+//        breaks.add(1400);
+//        breaks.add(7000);
+//        breaks.add(7500);
+//        WriteAudio wa = new WriteAudio(breaks, audioPath, audioPathO);
+//        WriteVideo wv = new WriteVideo(breaks, videoPath, videoPathO);
+//        wa.saveAudio();
+//        wv.deleteVideo();
+//        wv.saveVideo();
+//        player.init(inputO);
+//        Thread audio= new Thread(new PlayAudio(audioPathO, player));
+//        Thread video = new Thread(new PlayVideo(videoPathO, player));
+//        audio.start();
+//        video.start();
     }
 }

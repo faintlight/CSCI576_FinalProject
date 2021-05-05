@@ -67,21 +67,22 @@ public class WriteVideo {
     }
 
     public static void main(String[] args) {
-        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-        String videoPath = rootpath + "frames_rgb\\meridian\\";
-        String outputPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\Generated\\frames_rgb\\";
-        ArrayList<Integer> breaks = new ArrayList<>();
-        breaks.add(0);
-        breaks.add(100);
-        breaks.add(1200);
-        breaks.add(1400);
-        breaks.add(5500);
-        breaks.add(6000);
-        breaks.add(7000);
-        breaks.add(7500);
+//        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
+//        String videoPath = rootpath + "frames_rgb\\meridian\\";
+//        String outputPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\Generated\\frames_rgb\\";
+//
+//        ArrayList<Integer> breaks = new ArrayList<>();
+//        breaks.add(0);
+//        breaks.add(100);
+//        breaks.add(1200);
+//        breaks.add(1400);
+//        breaks.add(5500);
+//        breaks.add(6000);
+//        breaks.add(7000);
+//        breaks.add(7500);
 
-        WriteVideo wa = new WriteVideo(breaks, videoPath, outputPath);
-        wa.deleteVideo();
+//        WriteVideo wa = new WriteVideo(breaks, videoPath, outputPath);
+//        wa.deleteVideo();
 //        wa.saveVideo();
     }
 }

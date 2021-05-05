@@ -1,6 +1,7 @@
 package org.SummaryPlayer;
 
 
+import org.AVPlayer.WeightAssignment;
 import org.AVPlayer.WriteAudio;
 import org.AVPlayer.WriteVideo;
 
@@ -27,6 +28,7 @@ public class GeneratedPlayer {
     JLabel lbIm1;
     JButton terminateBtn = new JButton("TERMINATE");
     JButton pauseBtn = new JButton("PAUSE");
+    JLabel text = new JLabel("0/0");
     static int width = 320;
     static int height = 180;
     int statusId = 1; //1: play, 0: pause, -1: cease
@@ -81,6 +83,7 @@ public class GeneratedPlayer {
         terminateBtn.setBackground(new Color(59, 89, 182));
         terminateBtn.setFont(new Font("Courier", Font.BOLD, 20));
         terminateBtn.setBorder(BorderFactory.createRaisedBevelBorder());
+        text.setFont(new Font("Courier", Font.BOLD, 20));
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -93,11 +96,18 @@ public class GeneratedPlayer {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
+        c.gridwidth = 2;
+        frame.getContentPane().add(text, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
         c.gridwidth = 1;
         frame.getContentPane().add(pauseBtn, c);
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 2;
         frame.getContentPane().add(terminateBtn, c);
+
 
         frame.pack();
         frame.setVisible(true);
@@ -143,26 +153,22 @@ public class GeneratedPlayer {
         player = new GeneratedPlayer();
 
         String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-        String audioPath = rootpath + "audio\\concert.wav";
-        String videoPath = rootpath + "frames_rgb\\concert\\";
+        String audioPath = rootpath + "audio\\meridian.wav";
+        String videoPath = rootpath + "frames_rgb\\meridian\\";
         String rootpathO = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\";
-        String audioPathO = rootpathO + "concert.wav";
+        String audioPathO = rootpathO + "meridian.wav";
         String videoPathO = rootpathO + "frames_rgb\\";
         String[] inputO = {videoPathO+"frame0.rgb", videoPathO};
 
-        ArrayList<Integer> breaks = new ArrayList<>();
-        breaks.add(2);
-        breaks.add(102);
-        breaks.add(1200);
-        breaks.add(1400);
-        breaks.add(7000);
-        breaks.add(7500);
+        WeightAssignment weightAssignment = new WeightAssignment();
+        ArrayList<Integer> resultPoints = weightAssignment.getResults(videoPath);
+
         int totFrame = 0;
-        for (int i = 0; i < breaks.size(); i+=2) {
-            totFrame += breaks.get(i+1) - breaks.get(i) + 1;
+        for (int i = 0; i < resultPoints.size(); i+=2) {
+            totFrame += resultPoints.get(i+1) - resultPoints.get(i) + 1;
         }
-        WriteAudio wa = new WriteAudio(breaks, audioPath, audioPathO);
-        WriteVideo wv = new WriteVideo(breaks, videoPath, videoPathO);
+        WriteAudio wa = new WriteAudio(resultPoints, audioPath, audioPathO);
+        WriteVideo wv = new WriteVideo(resultPoints, videoPath, videoPathO);
         wa.saveAudio();
         wv.deleteVideo();
         wv.saveVideo();
