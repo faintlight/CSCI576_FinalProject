@@ -1,5 +1,10 @@
 package org.AVPlayer;
 
+<<<<<<< HEAD
+=======
+import org.*;
+
+>>>>>>> b7bf477... refactor
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -51,7 +56,11 @@ public class WeightAssignment {
 
     public static void main(String[] args) {
         WeightAssignment wa = new WeightAssignment();
+<<<<<<< HEAD
         wa.getResults("D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\frames_rgb\\\\meridian\\");
+=======
+        wa.getResults(Consts.);
+>>>>>>> b7bf477... refactor
 
     }
 }
