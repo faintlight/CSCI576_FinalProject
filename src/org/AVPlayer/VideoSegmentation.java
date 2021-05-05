@@ -147,32 +147,16 @@ public class VideoSegmentation {
 
     public void getFramesDiff(String originPath) {
         for (int i = 0; i < FPS * FULL_TIME-1; i++) {
-            String imgPath1 = originPath + "frame" + i + ".rgb";
-            String imgPath2 = originPath + "frame" + (i+1) + ".rgb";
+            String imgPath1 = new File(originPath, "frame" + i + ".rgb").getPath();
+            String imgPath2 = new File(originPath, "frame" + (i+1) + ".rgb").getPath();
             this.generateMat(imgPath1, imgPath2);
             diffOrigin[i] = this.analyseFrames();
             diffHisto[i] = this.analyseHisto();
             if (i % 1000 == 0) {
                 System.out.println("Segment finished: " + i);
             }
-//            imgPath1 = cannyPath + "frame" + i + ".jpg";
-//            imgPath2 = cannyPath + "frame" + (i+1) + ".jpg";
-//            generateCannyMat(imgPath1, imgPath2);
-//            diffCanny[i] = analyseFrames();
         }
     }
-
-//    public void cannyEdgeDetection(String inputPath, String outputPath) {
-//        for (int i = 0; i < FPS * FULL_TIME; i++) {
-//            if (i % 1000 == 0) {
-//                System.out.println("Canny finished: " + i);
-//            }
-//            Mat m1 = Imgcodecs.imread(inputPath+"frame"+i+".jpg");
-//            Mat s1 = new Mat();
-//            Imgproc.Canny(m1,s1,50,150,3,true);
-//            Imgcodecs.imwrite(outputPath+"frame"+i+".jpg", s1);
-//        }
-//    }
 
     public void getBreakPoints(String path) {
         this.getFramesDiff(path);
@@ -181,10 +165,10 @@ public class VideoSegmentation {
             if (diffOrigin[i] > THRESHOLD1 || diffHisto[i] > THRESHOLD2) {
                 this.breakPoints.add(i);
             }
-//            System.out.println("FRAME:"+i+" ORIGIN:"+diffOrigin[i]+" HISTO:"+diffHisto[i]);
         }
         this.breakPoints.add(16199);
     }
+
     public void clearHisto() {
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
@@ -194,26 +178,5 @@ public class VideoSegmentation {
                 }
             }
         }
-
     }
-//    public static void main(String[] args) {
-//        String rootPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-//        String pathRGB = rootPath + "frames_rgb\\meridian\\";
-//        String pathJPG = rootPath + "frames\\meridian\\";
-//        String pathCanny = rootPath + "canny\\meridian\\";
-//
-//        VideoSegmentation videoSegmentation = new VideoSegmentation();
-////        System.out.println("Canny starts......");
-////        videoSegmentation.cannyEdgeDetection(pathJPG, pathCanny);
-////        System.out.println("Canny finishes......");
-//
-//        videoSegmentation.getFramesDiff(pathRGB, pathCanny);
-//        for (int i = 0; i < FPS * FULL_TIME-1; i++) {
-//            if (diffOrigin[i] > THRESHOLD) {
-//
-//            }
-//        }
-//
-//
-//    }
 }

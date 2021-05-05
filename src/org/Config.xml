@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Player>
+    <RootPath>C:\Users\wgz\Desktop\USC\CSCI576\finalproject\b34c662f720236ba</RootPath>
+    <Dataset>
+        <Data Name="concert">
+            <Audio>dataset\audio\concert.wav</Audio>
+            <Video>dataset\concert</Video>
+            <OutAudio>out\data\concert.wav</OutAudio>
+            <OutVideo>out\data\concert</OutVideo>
+            <OutBreaks>out\data\concert_breaks.txt</OutBreaks>
+        </Data>
+        <Data Name="soccer">
+            <Audio>dataset\audio\soccer.wav</Audio>
+            <Video>dataset\soccer</Video>
+            <OutAudio>out\data\soccer.wav</OutAudio>
+            <OutVideo>out\data\soccer</OutVideo>
+            <OutBreaks>out\data\soccer_breaks.txt</OutBreaks>
+        </Data>
+        <Data Name="meridian">
+            <Audio>audio\meridian.wav</Audio>
+            <Video>dataset\meridian</Video>
+            <OutAudio>out\data\meridian.wav</OutAudio>
+            <OutVideo>out\data\meridian</OutVideo>
+            <OutBreaks>out\data\meridian_breaks.txt</OutBreaks>
+        </Data>
+    </Dataset>
+    <Ref>
+        <OpenCV>opencv\x64\opencv_java451.dll</OpenCV>
+    </Ref>
+</Player>
+

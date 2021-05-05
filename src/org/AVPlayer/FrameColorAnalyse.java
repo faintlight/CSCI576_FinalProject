@@ -173,6 +173,69 @@ public class FrameColorAnalyse
         return contrast;
     }
 
+    public double[][] GetImageHsv(double[][] imageFrame)
+    {
+        double[][] hsvMatrix = new double[3][this.FrameLength];
+        for (int ind = 0; ind < this.FrameLength; ind ++)
+        {
+            double[] hsvPixel = this.HSVConvert(imageFrame[0][ind], imageFrame[1][ind], imageFrame[2][ind]);
+            for(int c = 0; c < 3; c ++)
+            {
+                hsvMatrix[c][ind] = hsvPixel[c];
+            }
+        }
+        return hsvMatrix;
+    }
+
+    private double[] HSVConvert(double r, double g, double b){
+        //R, G, B are all in 0-255 range
+        //Convert into a HSV Value matrix
+        double[] HSVValue = new double[3];
+        double R = r / 255.0;
+        double G = g / 255.0;
+        double B = b / 255.0;
+        double[] CmaxCminVmaxVmin = FindCmaxCmin(R, G, B);
+        double delta = CmaxCminVmaxVmin[0] - CmaxCminVmaxVmin[1];
+
+        if(delta == 0){
+            HSVValue[0] = 0;
+        } else if (CmaxCminVmaxVmin[2] == 0){
+            HSVValue[0] = Math.round(60 * ((G-B)/delta));
+            if(HSVValue[0] < 0){
+                HSVValue[0] += 360;
+            }
+        } else if (CmaxCminVmaxVmin[2] == 1){
+            HSVValue[0] = Math.round(60 * ((B-R)/delta + 2));
+        } else {
+            HSVValue[0] = Math.round(60 * ((R-G)/delta + 4));
+        }
+
+        if (CmaxCminVmaxVmin[0] == 0){
+            HSVValue[1] = 0;
+        } else {
+            HSVValue[1] = delta / CmaxCminVmaxVmin[0];
+        }
+        HSVValue[2] = CmaxCminVmaxVmin[0];
+        return HSVValue;
+    }
+
+    private double[] FindCmaxCmin(double R, double G, double B){
+        double[] CmaxCminVmaxVmin = new double[]{0, 1, 0};
+        double[] RGB = new double[]{R, G, B};
+        int rgbIndicator = 0;
+        for(double rgb: RGB){
+            if (rgb >= CmaxCminVmaxVmin[0]){
+                CmaxCminVmaxVmin[0] = rgb;
+                CmaxCminVmaxVmin[2] = rgbIndicator;
+            } 
+            if (rgb <= CmaxCminVmaxVmin[1]){
+                CmaxCminVmaxVmin[1] = rgb;
+            }
+            rgbIndicator ++;
+        }
+        return CmaxCminVmaxVmin;
+    }
+
     public static void main(String[] args){
         System.out.println("!23");
     }

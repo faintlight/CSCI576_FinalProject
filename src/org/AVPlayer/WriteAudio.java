@@ -182,31 +182,10 @@ public class WriteAudio {
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-//        String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
-//        String audioPath = rootpath + "audio\\meridian.wav";
-//        String outputPath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\meridian.wav";
-//        ArrayList<Integer> breaks = new ArrayList<>();
-//        breaks.add(0);
-//        breaks.add(100);
-//        breaks.add(1200);
-//        breaks.add(1400);
-//        breaks.add(5500);
-//        breaks.add(6000);
-//        breaks.add(7000);
-//        breaks.add(7500);
-//
-//        WriteAudio wa = new WriteAudio(breaks, audioPath, outputPath);
-//        wa.saveAudio();
-=======
-        String rootpath = args[0];
-        String audioPath = rootpath + args[1];
-        String outputPath = rootpath + args[2];
-=======
+
         String audioPath = new File(Consts.audioRootName, args[0] + ".wav").getPath();
         String outputPath = new File(Consts.outRootName, args[0] + ".wav").getPath();
->>>>>>> b676e5e... refactor
+
         ArrayList<Integer> breaks = new ArrayList<>();
         breaks.add(0);
         breaks.add(100);
@@ -219,6 +198,5 @@ public class WriteAudio {
 
         WriteAudio wa = new WriteAudio(breaks, audioPath, outputPath);
         wa.saveAudio();
->>>>>>> 14307bd... bug fix
     }
 }

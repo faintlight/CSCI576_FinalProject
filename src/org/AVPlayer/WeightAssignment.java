@@ -1,29 +1,13 @@
 package org.AVPlayer;
 
-import org.Consts;
+import org.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class WeightAssignment {
-    static int breaks[] = {0,31,156,277,394,470,528,605,693,892,1083,1357,1460,1650,1757,2161,2282,2411,2583,2621,2689,2997,3152,3259,3320,3573,3638,4002,4120,4236,4369,4970,5051,5268,5579,5735,5943,6139,7155,7214,7803,8164,8842,10096,10505,10835,10918,11219,11872,12041,12289,12459,13137,16199};
-
-    public static void displayArray(ArrayList<Integer> array) {
-        for (int i = 0; i < array.size()-1; i++) {
-            System.out.println(i+":"+array.get(i)+"-"+array.get(i+1));
-        }
-    }
-    public static void displayPairArray(ArrayList<Integer> array) {
-        for (int i = 0; i < array.size(); i+=2) {
-            System.out.println(i/2+":"+array.get(i)+"-"+array.get(i+1));
-        }
-    }
-
-    public static void displayList(double[] list) {
-        for (int i = 0; i < list.length; i++) {
-            System.out.println("break"+i+":"+list[i]);
-        }
-    }
+    public Boolean saveTmpFile = true;    
 
     public static double Nth(double[] list, int n, ArrayList<Integer> breakPoints) {
         ArrayList<Double> array = new ArrayList<>();
@@ -36,34 +20,79 @@ public class WeightAssignment {
         return array.get(n-1);
     }
 
+    public static int[] GetBigestN(double[] list, int n)
+    {
+        int[] bigestN = new int[n];
+        for (int k = 0; k < n; k ++)
+        {
+            int largestIndex = -1;
+            double largestScore = -1; // please set all scores as positive values
+            for (int i = 0; i < list.length; i ++)
+            {
+                if ()
+            }
+        }
+    }
+
+    private void saveBreaksToFile(String fileName, ArrayList<Integer> listToWrite) 
+    {
+        try
+        {
+            File writeFile = new File(fileName);
+            writeFile.createNewFile();
+            BufferedWriter outBuffer = new BufferedWriter(new FileWriter(writeFile));
+            for (int breakPoint : listToWrite)
+            {
+                outBuffer.write(String.format("%d\n", breakPoint));
+            }
+            outBuffer.flush();
+            outBuffer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Integer> getResults(String videoPath) {
         VideoSegmentation videoSegmentation = new VideoSegmentation();
         videoSegmentation.getBreakPoints(videoPath);
 
         MotionAnalyse motionAnalyse = new MotionAnalyse();
+        FrameColorAnalyse frameColorAnalyse = new FrameColorAnalyse();
         ArrayList<Integer> breakPoints = videoSegmentation.breakPoints;
         ArrayList<Integer> resultPoints = new ArrayList<>();
+<<<<<<< HEAD
 //        for (int i = 0; i < breaks.length; i++) {
 //            breakPoints.add(breaks[i]);
 //        }
         displayArray(breakPoints);
 
+=======
+>>>>>>> 2306516... configure property
         double[] motionResults = motionAnalyse.getMotionArray(breakPoints, videoPath);
-        displayList(motionResults);
+        Utils.displayList(motionResults);
         for (int i = 0; i < motionResults.length; i++) {
             if (motionResults[i] > Nth(motionResults, 10, breakPoints) && breakPoints.get(i+1)-breakPoints.get(i) > 100) {
                 resultPoints.add(breakPoints.get(i));
                 resultPoints.add(breakPoints.get(i+1));
             }
         }
-        displayArray(resultPoints);
+        Utils.displayArray(resultPoints);
+        if (this.saveTmpFile) {
+            this.saveBreaksToFile("1.txt", resultPoints);
+        }
         return resultPoints;
     }
 
     public static void main(String[] args) {
         WeightAssignment wa = new WeightAssignment();
+<<<<<<< HEAD
 //        wa.getResults("D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\frames_rgb\\concert\\");
         wa.getResults(Consts.);
+=======
+        wa.getResults(Consts.meridianFrames);
+>>>>>>> 2306516... configure property
 
     }
 }

@@ -1,5 +1,7 @@
 package org.AVPlayer;
 
+import org.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -126,10 +128,6 @@ public class MotionAnalyse {
                     }
                     if (frameScoreBefore != 0 && (1.0*frameScore/frameBlock-frameScoreBefore) > 20) {
                         System.out.println(a+"-"+j+": "+(1.0*frameScore/frameBlock-frameScoreBefore));
-//                        if (havePair(resultPoints, breakPoints.get(i), breakPoints.get(i+1)))  {
-//                            resultPoints.add(breakPoints.get(i));
-//                            resultPoints.add(breakPoints.get(i+1));
-//                        }
                         coreFrame.add(a);
                         coreFrame.add(j);
                     }
@@ -139,29 +137,13 @@ public class MotionAnalyse {
             }
             breakScores[i] = 1.0*breakScore/breakBlock;
         }
-        double max = findMax(breakScores);
+        double max = Utils.findMax(breakScores);
         for (int i = 0; i < breakScores.length; i++) {
-//            if (breakScores[i] > 5 && havePair(resultPoints, breakPoints.get(i), breakPoints.get(i+1)))  {
-//                resultPoints.add(breakPoints.get(i));
-//                resultPoints.add(breakPoints.get(i+1));
-//                System.out.println(breakPoints.get(i)+"-"+breakPoints.get(i+1)+": "+breakScores[i]);
-//            }
             breakScores[i] = breakScores[i] / max;
         }
         resultPoints.sort(Comparator.naturalOrder());
         return breakScores;
     }
-
-    public static double findMax(double[] array) {
-        double max = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
-            }
-        }
-        return max;
-    }
-
 
     public static boolean havePair(ArrayList<Integer> array, int value1, int value2) {
         if (array.contains(value1) && array.contains(value2)) {
@@ -173,17 +155,4 @@ public class MotionAnalyse {
         }
         return true;
     }
-
-    public static void main(String[] args) {
-//        String rootPath = Consts.datasetRootName;
-//        String pathRGB = Consts.meridianFrames;
-//        MotionAnalyse motionAnalyse = new MotionAnalyse();
-//        VideoSegmentation videoSegmentation = new VideoSegmentation();
-//        //        videoSegmentation.getBreakPoints(path);
-//        for (int i = 0; i < breaks.length; i++) {
-//            videoSegmentation.breakPoints.add(breaks[i]);
-//        }
-//        motionAnalyse.getMotionMat(videoSegmentation, pathRGB);
-    }
-
 }
