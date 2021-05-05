@@ -147,12 +147,18 @@ public class MixedPlayer {
     public static void main(String[] args) throws InterruptedException {
         player = new MixedPlayer();
 
+<<<<<<< HEAD
         String rootpath = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\";
         String audioPath = rootpath + "audio\\soccer.wav";
         String videoPath = rootpath + "frames_rgb\\soccer\\";
 //        String rootpathO = "D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\generated\\";
 //        String audioPathO = rootpathO + "meridian.wav";
 //        String videoPathO = rootpathO + "frames_rgb\\";
+=======
+        String rootpath = args[0]; //path to the dataset fonder
+        String audioPath = rootpath + args[1]; //path to the .wav file
+        String videoPath = rootpath + args[2]; //path to the fonder for .rgb files
+>>>>>>> 14307bd... bug fix
         String[] input = {videoPath+"frame0.rgb", videoPath};
 //        String[] inputO = {videoPathO+"frame0.rgb", videoPathO};
         player.init(input);

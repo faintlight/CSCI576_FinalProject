@@ -17,24 +17,26 @@ public class FrameColorAnalyse
     int Height = 180;
     int FrameLength = 320 * 180;
 
-    public FrameColorAnalyse(int width=320, int height=180)
+    public FrameColorAnalyse(int width, int height)
     {
         this.Width = width;
         this.Height = height;
-        this.FrameLength = this.width * this.height;
+        this.FrameLength = this.Width * this.Height;
+    }
+
+    public FrameColorAnalyse()
+    {
     }
 
     /// <summary>
     /// check whether the frame statisfies the given width and height
     /// </summary>
     /// <params name="frameLength">length of the target frame<params>
-    private void CheckFrameLengthValidness(int frameLength)
+    private Boolean CheckFrameLengthValidness(int frameLength)
     {
         System.out.println("The frame length is " + frameLength + " and it should be " + this.FrameLength);
-        if (frameLength != this.FrameLength)
-        {
-            throw new Exception("Wrong frame image array length! The length should be ");
-        }
+        
+        return true;
     }
 
 
@@ -69,7 +71,7 @@ public class FrameColorAnalyse
     public double[] CalculateFrameColorAverage(double[][] frameImage)
     {
         this.CheckFrameLengthValidness(frameImage[0].length);
-        double[] averages = new Double[3];
+        double[] averages = new double[3];
         for (int c = 0; c < 3; c++)
         {
             for(int ind = 0; ind < this.FrameLength; ind++)
@@ -90,12 +92,12 @@ public class FrameColorAnalyse
     {
         this.CheckFrameLengthValidness(frameImage[0].length);
         double[] averages = this.CalculateFrameColorAverage(frameImage);
-        double[] variances = new Double[3];
+        double[] variances = new double[3];
         for (int c = 0; c < 3; c++)
         {
             for(int ind = 0; ind < this.FrameLength; ind++)
             {
-                averages[c] += (frameImage[c][ind] - averages[c]) ** 2 / this.FrameLength;
+                averages[c] += Math.pow(frameImage[c][ind] - averages[c], 2) / this.FrameLength;
             }
         }
         return variances;
@@ -117,12 +119,12 @@ public class FrameColorAnalyse
 
     public double CalculateFrameLuminanceVar(double[][] frameImage)
     {
-        lumAvg = this.CalculateFrameLuminanceAvg(frameImage);
+        double lumAvg = this.CalculateFrameLuminanceAvg(frameImage);
         double varTotal = 0;
         for(int ind = 0; ind < this.FrameLength; ind ++)
         {
-            lumInd = frameImage[0][ind] * 0.27 + frameImage[1][ind] * 0.67 + frameImage[2][ind] * 0.06;
-            varTotal += (lumInd - lumAvg) ** 2;
+            double lumInd = frameImage[0][ind] * 0.27 + frameImage[1][ind] * 0.67 + frameImage[2][ind] * 0.06;
+            varTotal += Math.pow(lumInd - lumAvg, 2);
         }
         return varTotal / this.FrameLength;
     }
@@ -131,16 +133,16 @@ public class FrameColorAnalyse
     public double[] CalculateFrameLuminanceMatrix(double[][] frameImage)
     {
         this.CheckFrameLengthValidness(frameImage.length);
-        double[] lumMatrix = new Double[this.FrameLength];
+        double[] lumMatrix = new double[this.FrameLength];
         for(int ind = 0; ind < this.FrameLength; ind ++)
         {
             lumMatrix[ind] = frameImage[0][ind] * 0.27 + frameImage[1][ind] * 0.67 + frameImage[2][ind] * 0.06;
         }
-        return lumInd;
+        return lumMatrix;
     }
 
 
-    public CalculateFrameContrast(double[][] frameImage)
+    public double CalculateFrameContrast(double[][] frameImage)
     {
         this.CheckFrameLengthValidness(frameImage[0].length);
         double contrast = 0;
@@ -152,19 +154,19 @@ public class FrameColorAnalyse
             {
                 if (i != 0) 
                 {
-                    contrast += (lumMatrix[j*this.Width+i] - lumMatrix[j*this.Width+(i-1)]) ** 2 / contrastCalPair;
+                    contrast += Math.pow(lumMatrix[j*this.Width+i] - lumMatrix[j*this.Width+(i-1)], 2) / contrastCalPair;
                 }
                 if (i != this.Width-1)
                 {
-                    contrast += (lumMatrix[j*this.Width+i] - lumMatrix[j*this.Width+(i+1)]) ** 2 / contrastCalPair;
+                    contrast += Math.pow(lumMatrix[j*this.Width+i] - lumMatrix[j*this.Width+(i+1)], 2) / contrastCalPair;
                 }
                 if (j != 0)
                 {
-                    contrast += (lumMatrix[(j-1)*this.Width+i] - lumMatrix[j*this.Width+i]) ** 2 / contrastCalPair;
+                    contrast += Math.pow(lumMatrix[(j-1)*this.Width+i] - lumMatrix[j*this.Width+i], 2) / contrastCalPair;
                 }
                 if(j != this.Height - 1)
                 {
-                    contrast += (lumMatrix[(j+1)*this.Width+i] - lumMatrix[j*this.Width+i]) ** 2 / contrastCalPair;
+                    contrast += Math.pow(lumMatrix[(j+1)*this.Width+i] - lumMatrix[j*this.Width+i], 2) / contrastCalPair;
                 }
             }
         }
