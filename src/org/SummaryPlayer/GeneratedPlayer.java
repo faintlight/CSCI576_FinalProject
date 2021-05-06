@@ -154,7 +154,7 @@ public class GeneratedPlayer {
         player = new GeneratedPlayer();
         ConfigurationProperty cp = new ConfigurationProperty();
 
-        String dataName = "test1";
+        String dataName = "test2";
         String audioPath = cp.GetFilePath(dataName, "Audio");
         String videoPath = cp.GetFilePath(dataName, "Video");
         String audioPathO = cp.GetFilePath(dataName, "OutAudio");

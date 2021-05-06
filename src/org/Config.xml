@@ -7,14 +7,14 @@
             <Video>testcase\test_data\frames_rgb_test</Video>
             <OutAudio>testcase\generated\test_case_1.wav</OutAudio>
             <OutVideo>testcase\generated\frame1\</OutVideo>
-            <OutBreaks>testcase\generated\concert_breaks1.txt</OutBreaks>
+            <OutBreaks>testcase\generated\breaks1.txt</OutBreaks>
         </Data>
         <Data Name="test2">
             <Audio>testcase\test_data_2\test_video_2.wav</Audio>
             <Video>testcase\test_data_2\frames_rgb_test</Video>
             <OutAudio>testcase\generated\test_case_2.wav</OutAudio>
             <OutVideo>testcase\generated\frame2\</OutVideo>
-            <OutBreaks>testcase\generated\concert_breaks2.txt</OutBreaks>
+            <OutBreaks>testcase\generated\breaks2.txt</OutBreaks>
         </Data>
     </Dataset>
     <Ref>

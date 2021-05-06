@@ -108,7 +108,7 @@ public class MotionAnalyse {
         ArrayList<Integer> resultPoints = new ArrayList<>();
 
         for (int i = 0; i < breakPoints.size()-1; i++) {
-            System.out.println("Processing break "+i+" out of "+breakPoints.size());
+//            System.out.println("Processing break "+i+" out of "+breakPoints.size());
             int a = breakPoints.get(i)+1;
             double breakScore = 0;
             int breakBlock = 0;
@@ -127,7 +127,7 @@ public class MotionAnalyse {
                         }
                     }
                     if (frameScoreBefore != 0 && (1.0*frameScore/frameBlock-frameScoreBefore) > 20) {
-                        System.out.println(a+"-"+j+": "+(1.0*frameScore/frameBlock-frameScoreBefore));
+//                        System.out.println(a+"-"+j+": "+(1.0*frameScore/frameBlock-frameScoreBefore));
                         coreFrame.add(a);
                         coreFrame.add(j);
                     }

@@ -45,54 +45,79 @@ public class WeightAssignment {
         }
     }
 
+    public int addResult(int start, int end, ArrayList<Integer> breaks, double[] motion) {
+        double maxMotion = 0;
+        int addI = 0;
+        for (int i = 0; i < breaks.size()-1; i++) {
+            if (breaks.get(i) > start && breaks.get(i+1) < end) {
+                if (motion[i] > maxMotion) {
+                    addI = i;
+                }
+            }
+        }
+        return addI;
+    }
+
     public ArrayList<Integer> getResults(String dataName) {
+        MotionAnalyse motionAnalyse = new MotionAnalyse();
+        AudioAnalysis audioAnalysis = new AudioAnalysis(cp.GetFilePath(dataName, "Audio"));
+        FrameColorAnalyse frameColorAnalyse = new FrameColorAnalyse();
+
         VideoSegmentation videoSegmentation = new VideoSegmentation();
         videoSegmentation.getBreakPoints(cp.GetFilePath(dataName, "Video"));
-
-        MotionAnalyse motionAnalyse = new MotionAnalyse();
-        FrameColorAnalyse frameColorAnalyse = new FrameColorAnalyse();
         ArrayList<Integer> breakPoints = videoSegmentation.breakPoints;
         ArrayList<Integer> resultPoints = new ArrayList<>();
+
         double[] motionResults = motionAnalyse.getMotionArray(breakPoints, cp.GetFilePath(dataName, "Video"));
-        Utils.displayArray(breakPoints);
-        Utils.displayList(motionResults);
-
-        int frameHold = breakPoints.size()>100?100:40;
-        int n = (breakPoints.size()-1)/10;
-        double threshold = Nth(motionResults, n, breakPoints, frameHold);
-
+        double[] audioResults = audioAnalysis.weightAudio(breakPoints);
+        double[] finalResults = new double[motionResults.length];
         for (int i = 0; i < motionResults.length; i++) {
-            if (motionResults[i] > threshold && breakPoints.get(i+1)-breakPoints.get(i) > frameHold) {
+            finalResults[i] = motionResults[i]*0.8 + audioResults[i]*0.2;
+        }
+        Utils.displayArray(breakPoints);
+        Utils.displayList(finalResults);
+
+//        int frameHold = 100;
+        int frameHold = 40;
+//        int n = (breakPoints.size()-1)/10;
+        int n = (breakPoints.size()-1)/7;
+        double threshold = Nth(finalResults, n, breakPoints, frameHold);
+
+        for (int i = 0; i < finalResults.length; i++) {
+            if (finalResults[i] > threshold && breakPoints.get(i+1)-breakPoints.get(i) > frameHold) {
                 if (i != 0 && !resultPoints.contains(breakPoints.get(i)) && breakPoints.get(i)-breakPoints.get(i-1) > frameHold) {
                     resultPoints.add(breakPoints.get(i-1));
                     resultPoints.add(breakPoints.get(i));
                 }
-//                resultPoints.add(breakPoints.get(i));
-//                resultPoints.add(breakPoints.get(i+1));
-//                System.out.println(breakPoints.get(i+1)-breakPoints.get(i));
-                if (breakPoints.get(i+1) - breakPoints.get(i) > 500) {
-                    resultPoints.add(breakPoints.get(i));
-                    resultPoints.add(breakPoints.get(i)+300);
-                } else {
-                    resultPoints.add(breakPoints.get(i));
-                    resultPoints.add(breakPoints.get(i+1));
-                }
+                resultPoints.add(breakPoints.get(i));
+                resultPoints.add(breakPoints.get(i+1));
 
             }
         }
 
-        if (motionResults[motionResults.length-2] > threshold
-                && !resultPoints.contains(breakPoints.get(motionResults.length-1))) {
-            resultPoints.add(breakPoints.get(motionResults.length-2));
-            resultPoints.add(breakPoints.get(motionResults.length-1));
+        // Ending supplement
+        for (int i = 5; i > 0; i--) {
+            if (finalResults[finalResults.length-i] > threshold
+                    && !resultPoints.contains(breakPoints.get(finalResults.length-i+1))) {
+                resultPoints.add(breakPoints.get(finalResults.length-i));
+                resultPoints.add(breakPoints.get(finalResults.length-i+1));
+            }
         }
 
-        if (motionResults[motionResults.length-1] > threshold
-                && !resultPoints.contains(breakPoints.get(motionResults.length))) {
-            resultPoints.add(breakPoints.get(motionResults.length-1));
-            resultPoints.add(breakPoints.get(motionResults.length));
+        // Vacant supplement
+        int cut = 0;
+        for (int i = 0; i < resultPoints.size(); i+=2) {
+            if (resultPoints.get(i) - cut > 3000) {
+                int addI = addResult(cut, resultPoints.get(i), breakPoints, motionResults);
+                if (addI != 0) {
+                    resultPoints.add(breakPoints.get(addI));
+                    resultPoints.add(breakPoints.get(addI+1));
+                }
+            }
+            cut = resultPoints.get(i);
         }
 
+        resultPoints.sort(Comparator.naturalOrder());
         Utils.displayArray(resultPoints);
         if (this.saveTmpFile) {
             this.saveBreaksToFile("1.txt", resultPoints);
