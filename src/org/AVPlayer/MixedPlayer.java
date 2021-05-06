@@ -150,7 +150,7 @@ public class MixedPlayer {
         player = new MixedPlayer();
         ConfigurationProperty cp = new ConfigurationProperty();
 
-        String dataName = "test1";
+        String dataName = "test2";
 
         String audioPath = cp.GetFilePath(dataName, "Audio");
         String videoPath = cp.GetFilePath(dataName, "Video");

@@ -45,12 +45,12 @@ public class WeightAssignment {
         }
     }
 
-    public int addResult(int start, int end, ArrayList<Integer> breaks, double[] motion) {
+    public int addResult(int start, int end, ArrayList<Integer> points, ArrayList<Integer> breaks, double[] motion) {
         double maxMotion = 0;
         int addI = 0;
         for (int i = 0; i < breaks.size()-1; i++) {
-            if (breaks.get(i) > start && breaks.get(i+1) < end) {
-                if (motion[i] > maxMotion) {
+            if (breaks.get(i) > start && breaks.get(i+1) < end && breaks.get(i+1)-breaks.get(i) > 200) {
+                if (motion[i] > maxMotion && !points.contains(i)) {
                     addI = i;
                 }
             }
@@ -79,8 +79,9 @@ public class WeightAssignment {
 
 //        int frameHold = 100;
         int frameHold = 40;
-//        int n = (breakPoints.size()-1)/10;
-        int n = (breakPoints.size()-1)/7;
+//        int n = (breakPoints.size()-1)/12;
+        int n = (breakPoints.size()-1)/5;
+
         double threshold = Nth(finalResults, n, breakPoints, frameHold);
 
         for (int i = 0; i < finalResults.length; i++) {
@@ -96,7 +97,7 @@ public class WeightAssignment {
         }
 
         // Ending supplement
-        for (int i = 5; i > 0; i--) {
+        for (int i = 4; i > 0; i--) {
             if (finalResults[finalResults.length-i] > threshold
                     && !resultPoints.contains(breakPoints.get(finalResults.length-i+1))) {
                 resultPoints.add(breakPoints.get(finalResults.length-i));
@@ -104,17 +105,17 @@ public class WeightAssignment {
             }
         }
 
-        // Vacant supplement
+        // Vacant supplement 1
         int cut = 0;
         for (int i = 0; i < resultPoints.size(); i+=2) {
-            if (resultPoints.get(i) - cut > 3000) {
-                int addI = addResult(cut, resultPoints.get(i), breakPoints, motionResults);
+            if (resultPoints.get(i) - cut > 2000) {
+                int addI = addResult(cut, resultPoints.get(i), resultPoints, breakPoints, motionResults);
                 if (addI != 0) {
                     resultPoints.add(breakPoints.get(addI));
-                    resultPoints.add(breakPoints.get(addI+1));
+                    resultPoints.add(breakPoints.get(addI)+200);
                 }
             }
-            cut = resultPoints.get(i);
+            cut = resultPoints.get(i+1);
         }
 
         resultPoints.sort(Comparator.naturalOrder());

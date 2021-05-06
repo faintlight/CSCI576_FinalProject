@@ -185,7 +185,7 @@ public class VideoSegmentation {
                 || diffHsv[i] > cp.GetValue("VideoSegmentation", "HsvDiffThreshold"))
                 && i - preFrame > cp.GetValue("VideoSegmentation", "FramePass"))
             {
-                System.out.println("FRAME:"+i+" ORIGIN:"+diffOrigin[i]+" HISTO:"+diffHisto[i]+" HSV:"+diffHsv[i]);
+//                System.out.println("FRAME:"+i+" ORIGIN:"+diffOrigin[i]+" HISTO:"+diffHisto[i]+" HSV:"+diffHsv[i]);
                 this.breakPoints.add(i);
                 preFrame = i;
             }
