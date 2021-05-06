@@ -28,10 +28,6 @@ public class VideoSegmentation {
     static int FULL_TIME = 540;
     static int width = 320;
     static int height = 180;
-    static double THRESHOLD1 = 50;
-    static double THRESHOLD2 = 1.001;
-    static double THRESHOLD3 = 200;
-    static double THRESHOLD4 = 10;
     static double diffOrigin[] = new double[Consts.VideoFps * FULL_TIME-1];
     static double diffHisto[] = new double[Consts.VideoFps * FULL_TIME-1];
     static double diffHsv[] = new double[Consts.VideoFps * FULL_TIME-1];
@@ -184,14 +180,17 @@ public class VideoSegmentation {
         this.breakPoints.add(0);
         int preFrame = 0;
         for (int i = 0; i < Consts.VideoFps * FULL_TIME-1; i++) {
-            if (diffOrigin[i] > cp.GetValue("VideoSegmentation", "RgbDiffThreshold") 
-                && diffHisto[i] > cp.GetValue("VideoSegmentation", "HistoDiffThreshold")
+            if (((diffOrigin[i] > cp.GetValue("VideoSegmentation", "RgbDiffThreshold")
+                && diffHisto[i] > cp.GetValue("VideoSegmentation", "HistoDiffThreshold"))
+                || diffHsv[i] > cp.GetValue("VideoSegmentation", "HsvDiffThreshold"))
                 && i - preFrame > cp.GetValue("VideoSegmentation", "FramePass"))
+//            if (diffHsv[i] > cp.GetValue("VideoSegmentation", "HsvDiffThreshold")
+//                && i - preFrame > cp.GetValue("VideoSegmentation", "FramePass"))
             {
+                System.out.println("FRAME:"+i+" ORIGIN:"+diffOrigin[i]+" HISTO:"+diffHisto[i]+" HSV:"+diffHsv[i]);
                 this.breakPoints.add(i);
                 preFrame = i;
             }
-            System.out.println("FRAME:"+i+" ORIGIN:"+diffOrigin[i]+" HISTO:"+diffHisto[i]+" HSV:"+diffHsv[i]);
 
         }
         this.breakPoints.add(16199);

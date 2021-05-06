@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class Utils{
     public static void displayArray(ArrayList<Integer> array) {
-        for (int i = 0; i < array.size(); i+=2) {
-            System.out.println(array.get(i)+"-"+array.get(i+1));
+        for (int i = 0; i < array.size(); i++) {
+            System.out.println(array.get(i));
         }
     }
     public static void displayList(double[] list) {

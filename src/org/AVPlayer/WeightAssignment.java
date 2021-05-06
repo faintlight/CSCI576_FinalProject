@@ -52,10 +52,14 @@ public class WeightAssignment {
         double[] motionResults = motionAnalyse.getMotionArray(breakPoints, cp.GetFilePath(dataName, "Video"));
         Utils.displayArray(breakPoints);
         Utils.displayList(motionResults);
+
+        int n = (breakPoints.size()-1)/8;
         for (int i = 0; i < motionResults.length; i++) {
-            if (motionResults[i] > Nth(motionResults, 10, breakPoints) && breakPoints.get(i+1)-breakPoints.get(i) > 100) {
-                resultPoints.add(breakPoints.get(i-1));
-                resultPoints.add(breakPoints.get(i));
+            if (motionResults[i] > Nth(motionResults, n, breakPoints) && breakPoints.get(i+1)-breakPoints.get(i) > 100) {
+                if (i != 0 && !resultPoints.contains(breakPoints.get(i)) && breakPoints.get(i)-breakPoints.get(i-1) > 100) {
+                    resultPoints.add(breakPoints.get(i-1));
+                    resultPoints.add(breakPoints.get(i));
+                }
                 resultPoints.add(breakPoints.get(i));
                 resultPoints.add(breakPoints.get(i+1));
             }
