@@ -137,6 +137,7 @@ public class MotionAnalyse {
             }
             breakScores[i] = 1.0*breakScore/breakBlock;
         }
+        Utils.clearNaN(breakScores);
         double max = Utils.findMax(breakScores);
         for (int i = 0; i < breakScores.length; i++) {
             breakScores[i] = breakScores[i] / max;

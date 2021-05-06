@@ -1,9 +1,7 @@
 package org;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Utils{
     public static void displayArray(ArrayList<Integer> array) {
@@ -19,5 +17,13 @@ public class Utils{
 
     public static double findMax(double[] array) {
         return Arrays.stream(array).max().getAsDouble();
+    }
+
+    public static void clearNaN(double[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (Double.isNaN(array[i])) {
+                array[i] = 0;
+            }
+        }
     }
 }

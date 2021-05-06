@@ -12,7 +12,7 @@ public class WeightAssignment {
     public static double Nth(double[] list, int n, ArrayList<Integer> breakPoints) {
         ArrayList<Double> array = new ArrayList<>();
         for (int i = 0; i < list.length; i++) {
-            if (!Double.isNaN(list[i]) && breakPoints.get(i+1)-breakPoints.get(i) > 100){
+            if (breakPoints.get(i+1)-breakPoints.get(i) > 100){
                 array.add(list[i]);
             }
         }
@@ -62,14 +62,6 @@ public class WeightAssignment {
         FrameColorAnalyse frameColorAnalyse = new FrameColorAnalyse();
         ArrayList<Integer> breakPoints = videoSegmentation.breakPoints;
         ArrayList<Integer> resultPoints = new ArrayList<>();
-<<<<<<< HEAD
-//        for (int i = 0; i < breaks.length; i++) {
-//            breakPoints.add(breaks[i]);
-//        }
-        displayArray(breakPoints);
-
-=======
->>>>>>> 2306516... configure property
         double[] motionResults = motionAnalyse.getMotionArray(breakPoints, videoPath);
         Utils.displayList(motionResults);
         for (int i = 0; i < motionResults.length; i++) {
@@ -87,12 +79,6 @@ public class WeightAssignment {
 
     public static void main(String[] args) {
         WeightAssignment wa = new WeightAssignment();
-<<<<<<< HEAD
-//        wa.getResults("D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\dateset\\frames_rgb\\concert\\");
-        wa.getResults(Consts.);
-=======
         wa.getResults(Consts.meridianFrames);
->>>>>>> 2306516... configure property
-
     }
 }
