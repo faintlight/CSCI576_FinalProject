@@ -2,19 +2,19 @@
 <Player>
     <RootPath>D:\\MyMainFolder\\MSUSC\\CSCI576\\project\\</RootPath>
     <Dataset>
-        <Data Name="concert">
+        <Data Name="test1">
             <Audio>testcase\test_data\test_video.wav</Audio>
-            <Video>testcase\test_data\frames_rgb_test\test_video</Video>
-            <OutAudio>testcase\generated\1.wav</OutAudio>
-            <OutVideo>testcase\generated\frame\</OutVideo>
-            <OutBreaks>testcase\generated\concert_breaks.txt</OutBreaks>
+            <Video>testcase\test_data\frames_rgb_test</Video>
+            <OutAudio>testcase\generated\test_case_1.wav</OutAudio>
+            <OutVideo>testcase\generated\frame1\</OutVideo>
+            <OutBreaks>testcase\generated\concert_breaks1.txt</OutBreaks>
         </Data>
-        <Data Name="concert">
-            <Audio>testcase\test_data2\test_video.wav</Audio>
-            <Video>testcase\test_data2\frames_rgb_test\test_video_2</Video>
-            <OutAudio>testcase\generated\1.wav</OutAudio>
-            <OutVideo>testcase\generated\frame\</OutVideo>
-            <OutBreaks>testcase\generated\concert_breaks.txt</OutBreaks>
+        <Data Name="test2">
+            <Audio>testcase\test_data_2\test_video_2.wav</Audio>
+            <Video>testcase\test_data_2\frames_rgb_test</Video>
+            <OutAudio>testcase\generated\test_case_2.wav</OutAudio>
+            <OutVideo>testcase\generated\frame2\</OutVideo>
+            <OutBreaks>testcase\generated\concert_breaks2.txt</OutBreaks>
         </Data>
     </Dataset>
     <Ref>
@@ -22,14 +22,15 @@
     </Ref>
     <Values>
         <VideoSegmentation>
-            <RgbDiffThreshold>75</RgbDiffThreshold>
-            <HistoDiffThreshold>1.0</HistoDiffThreshold>
-            <HsvDiffThreshold>75</HsvDiffThreshold>
+            <RgbDiffThreshold>140</RgbDiffThreshold>
+            <HistoDiffThreshold>1</HistoDiffThreshold>
+            <HsvDiffThreshold>80</HsvDiffThreshold>
             <FramePass>10</FramePass>
         </VideoSegmentation>
-        <WeightAssignment>
-            
-        </WeightAssignment>
+        <!--<WeightAssignment>-->
+            <!--<FrameHold>100</FrameHold>-->
+            <!--<PreFrameHold>100</PreFrameHold>-->
+        <!--</WeightAssignment>-->
     </Values>
 </Player>
 

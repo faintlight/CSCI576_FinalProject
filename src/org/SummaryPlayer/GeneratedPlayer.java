@@ -4,7 +4,7 @@ package org.SummaryPlayer;
 import org.AVPlayer.WeightAssignment;
 import org.AVPlayer.WriteAudio;
 import org.AVPlayer.WriteVideo;
-import org.*;
+import org.ConfigurationProperty;
 
 import javax.swing.*;
 import java.awt.*;
@@ -153,14 +153,16 @@ public class GeneratedPlayer {
     public static void main(String[] args) throws InterruptedException {
         player = new GeneratedPlayer();
         ConfigurationProperty cp = new ConfigurationProperty();
-        String audioPath = cp.GetFilePath(args[0], "Audio");
-        String videoPath = cp.GetFilePath(args[0], "Video");
-        String audioPathO = cp.GetFilePath(args[0], "OutAudio");
-        String videoPathO = cp.GetFilePath(args[0], "OutVideo");
-        String[] inputO = {new File(videoPathO, "frame0.rgb").getPath(), videoPathO};
+
+        String dataName = "test1";
+        String audioPath = cp.GetFilePath(dataName, "Audio");
+        String videoPath = cp.GetFilePath(dataName, "Video");
+        String audioPathO = cp.GetFilePath(dataName, "OutAudio");
+        String videoPathO = cp.GetFilePath(dataName, "OutVideo");
+        String[] inputO = {videoPathO+"\\frame0.rgb", videoPathO};
 
         WeightAssignment weightAssignment = new WeightAssignment();
-        ArrayList<Integer> resultPoints = weightAssignment.getResults(args[0]);
+        ArrayList<Integer> resultPoints = weightAssignment.getResults(dataName);
 
         int totFrame = 0;
         for (int i = 0; i < resultPoints.size(); i+=2) {

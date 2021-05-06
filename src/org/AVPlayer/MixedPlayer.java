@@ -1,6 +1,8 @@
 package org.AVPlayer;
 
 
+import org.ConfigurationProperty;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -146,34 +148,17 @@ public class MixedPlayer {
 
     public static void main(String[] args) throws InterruptedException {
         player = new MixedPlayer();
+        ConfigurationProperty cp = new ConfigurationProperty();
 
-        String rootpath = args[0]; //path to the dataset fonder
-        String audioPath = rootpath + args[1]; //path to the .wav file
-        String videoPath = rootpath + args[2]; //path to the fonder for .rgb files
-        String[] input = {videoPath+"frame0.rgb", videoPath};
-//        String[] inputO = {videoPathO+"frame0.rgb", videoPathO};
+        String dataName = "test1";
+
+        String audioPath = cp.GetFilePath(dataName, "Audio");
+        String videoPath = cp.GetFilePath(dataName, "Video");
+        String[] input = {videoPath+"\\frame0.rgb", videoPath};
         player.init(input);
         Thread audio= new Thread(new PlayAudio(audioPath, player));
         Thread video = new Thread(new PlayVideo(videoPath, player));
         audio.start();
         video.start();
-//
-//        ArrayList<Integer> breaks = new ArrayList<>();
-//        breaks.add(2);
-//        breaks.add(102);
-//        breaks.add(1200);
-//        breaks.add(1400);
-//        breaks.add(7000);
-//        breaks.add(7500);
-//        WriteAudio wa = new WriteAudio(breaks, audioPath, audioPathO);
-//        WriteVideo wv = new WriteVideo(breaks, videoPath, videoPathO);
-//        wa.saveAudio();
-//        wv.deleteVideo();
-//        wv.saveVideo();
-//        player.init(inputO);
-//        Thread audio= new Thread(new PlayAudio(audioPathO, player));
-//        Thread video = new Thread(new PlayVideo(videoPathO, player));
-//        audio.start();
-//        video.start();
     }
 }
