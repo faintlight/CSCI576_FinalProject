@@ -1,15 +1,13 @@
 package org;
 
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class ConfigurationProperty{
     String ConfigFileName;
@@ -36,11 +34,11 @@ public class ConfigurationProperty{
     {
         try
         {
-            this.ConfigFileName = "Config.xml";
+            this.ConfigFileName = "src\\org\\Config.xml";
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             DocumentBuilder db = dbf.newDocumentBuilder();
-            this.doc = db.parse(new File("Config.xml"));
+            this.doc = db.parse(new File("src\\org\\Config.xml"));
             this.doc.getDocumentElement().normalize();
         }
         catch (Exception e)
