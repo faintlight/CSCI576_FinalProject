@@ -13,16 +13,9 @@ import java.io.RandomAccessFile;
 
 public class FrameColorAnalyse 
 {
-    int Width = 320;
-    int Height = 180;
-    int FrameLength = 320 * 180;
-
-    public FrameColorAnalyse(int width, int height)
-    {
-        this.Width = width;
-        this.Height = height;
-        this.FrameLength = this.Width * this.Height;
-    }
+    int Width = Consts.FrameWidth;
+    int Height = Consts.FrameHeight;
+    int FrameLength = Consts.FrameWidth * Consts.FrameHeight;
 
     public FrameColorAnalyse()
     {

@@ -182,9 +182,9 @@ public class WriteAudio {
     }
 
     public static void main(String[] args) {
-
-        String audioPath = new File(Consts.audioRootName, args[0] + ".wav").getPath();
-        String outputPath = new File(Consts.outRootName, args[0] + ".wav").getPath();
+        ConfigurationProperty cp = new ConfigurationProperty();
+        String audioPath = cp.GetFilePath(args[0], "Audio");
+        String outputPath = cp.GetFilePath(args[0], "OutAudio");
 
         ArrayList<Integer> breaks = new ArrayList<>();
         breaks.add(0);

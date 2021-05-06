@@ -27,5 +27,15 @@
     <Ref>
         <OpenCV>opencv\x64\opencv_java451.dll</OpenCV>
     </Ref>
+    <Values>
+        <VideoSegmentation>
+            <RgbDiffThreshold>140</RgbDiffThreshold>
+            <HistoDiffThreshold>1.001</HistoDiffThreshold>
+            <HsvDiffThreshold>140</HsvDiffThreshold>
+        </VideoSegmentation>
+        <WeightAssignment>
+            
+        </WeightAssignment>
+    </Values>
 </Player>
 

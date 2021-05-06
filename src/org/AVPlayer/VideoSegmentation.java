@@ -1,6 +1,6 @@
 package org.AVPlayer;
 
-import org.Consts;
+import org.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -25,14 +25,15 @@ public class VideoSegmentation {
     double postImgB[] = new double[height*width];
     double preHisto[][][] = new double[16][16][16];
     double postHisto[][][] = new double[16][16][16];
-    static int FPS = 30;
     static int FULL_TIME = 540;
     static int width = 320;
     static int height = 180;
-    static double THRESHOLD1 = 140;
+    static double THRESHOLD1 = 50;
     static double THRESHOLD2 = 1.001;
-    static double diffOrigin[] = new double[FPS*FULL_TIME-1];
-    static double diffHisto[] = new double[FPS*FULL_TIME-1];
+    static double THRESHOLD3 = 200;
+    static double diffOrigin[] = new double[Consts.VideoFps * FULL_TIME-1];
+    static double diffHisto[] = new double[Consts.VideoFps * FULL_TIME-1];
+    static double diffHsv[] = new double[Consts.VideoFps * FULL_TIME-1];
     ArrayList<Integer> breakPoints = new ArrayList<>();
 
 
@@ -41,7 +42,7 @@ public class VideoSegmentation {
     }
 
     public VideoSegmentation() {
-        System.load(Consts.opencvFileName);
+        System.load(new ConfigurationProperty().GetOpenCVFilePath());
     }
 
     public void generateMat(String imgPath1, String imgPath2){
@@ -132,6 +133,23 @@ public class VideoSegmentation {
         return diffR + diffG + diffB;
     }
 
+    public double analyseHsv() {
+        FrameColorAnalyse fca = new FrameColorAnalyse();
+        double diffs = 0;
+        double[][] preImage = new double[][]{preImgR, preImgG, preImgB};
+        double[][] postImage = new double[][]{postImgR, postImgG, postImgB};
+        double[][] hsvMatrixPre = fca.GetImageHsv(preImage);
+        double[][] hsvMatrixPost = fca.GetImageHsv(postImage);
+        for(int chn = 0; chn < 3; chn ++)
+        {
+            for (int ind = 0; ind < width * height; ind ++)
+            {
+                diffs += Math.abs(hsvMatrixPre[chn][ind] - hsvMatrixPost[chn][ind]) / (double)(width*height);
+            }
+        }
+        return diffs;
+    }
+
     public double analyseHisto() {
         double diffHisto = 0;
         int pixels = width * height;
@@ -146,12 +164,13 @@ public class VideoSegmentation {
     }
 
     public void getFramesDiff(String originPath) {
-        for (int i = 0; i < FPS * FULL_TIME-1; i++) {
+        for (int i = 0; i < Consts.VideoFps * FULL_TIME-1; i++) {
             String imgPath1 = new File(originPath, "frame" + i + ".rgb").getPath();
             String imgPath2 = new File(originPath, "frame" + (i+1) + ".rgb").getPath();
             this.generateMat(imgPath1, imgPath2);
             diffOrigin[i] = this.analyseFrames();
             diffHisto[i] = this.analyseHisto();
+            //diffHsv[i] = this.analyseHsv();
             if (i % 1000 == 0) {
                 System.out.println("Segment finished: " + i);
             }
@@ -159,10 +178,14 @@ public class VideoSegmentation {
     }
 
     public void getBreakPoints(String path) {
+        ConfigurationProperty cp = new ConfigurationProperty();
         this.getFramesDiff(path);
         this.breakPoints.add(0);
-        for (int i = 0; i < FPS * FULL_TIME-1; i++) {
-            if (diffOrigin[i] > THRESHOLD1 || diffHisto[i] > THRESHOLD2) {
+        for (int i = 0; i < Consts.VideoFps * FULL_TIME-1; i++) {
+            if (diffOrigin[i] > cp.GetValue("VideoSegmentation", "RgbDiffThreshold") 
+                || diffHisto[i] > cp.GetValue("VideoSegmentation", "HistoDiffThreshold") 
+                || diffHsv[i] > cp.GetValue("VideoSegmentation", "HsvDiffThreshold")) 
+            {
                 this.breakPoints.add(i);
             }
         }

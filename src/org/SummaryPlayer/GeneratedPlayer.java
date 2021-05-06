@@ -152,17 +152,15 @@ public class GeneratedPlayer {
 
     public static void main(String[] args) throws InterruptedException {
         player = new GeneratedPlayer();
-
-        String rootpath = Consts.datasetRootName;
-        String audioPath = new File(Consts.audioRootName, "concert.wav").getPath();
-        String videoPath = Consts.concertFrames;
-        String rootpathO = Consts.outRootName;
-        String audioPathO = new File(rootpathO, "concert.wav").getPath();
-        String videoPathO = new File(rootpathO, "concert").getPath();
+        ConfigurationProperty cp = new ConfigurationProperty();
+        String audioPath = cp.GetFilePath(args[0], "Audio");
+        String videoPath = cp.GetFilePath(args[0], "Video");
+        String audioPathO = cp.GetFilePath(args[0], "OutAudio");
+        String videoPathO = cp.GetFilePath(args[0], "OutVideo");
         String[] inputO = {new File(videoPathO, "frame0.rgb").getPath(), videoPathO};
 
         WeightAssignment weightAssignment = new WeightAssignment();
-        ArrayList<Integer> resultPoints = weightAssignment.getResults(videoPath);
+        ArrayList<Integer> resultPoints = weightAssignment.getResults(args[0]);
 
         int totFrame = 0;
         for (int i = 0; i < resultPoints.size(); i+=2) {

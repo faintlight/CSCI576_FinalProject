@@ -32,6 +32,23 @@ public class ConfigurationProperty{
         }
     }
 
+    public ConfigurationProperty()
+    {
+        try
+        {
+            this.ConfigFileName = "Config.xml";
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            this.doc = db.parse(new File("Config.xml"));
+            this.doc.getDocumentElement().normalize();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public String GetRoot()
     {
         String rootPath = this.doc.getElementsByTagName("RootPath").item(0).getTextContent();
@@ -45,7 +62,7 @@ public class ConfigurationProperty{
         {
             Element dataElement = (Element) data.item(dataInd);
 
-            if (dataElement.getAttribute("Name").equals(dataName)) 
+            if (!dataElement.getAttribute("Name").equals(dataName)) 
             {
                 continue;
             }
@@ -55,6 +72,14 @@ public class ConfigurationProperty{
             return new File(rootPath, filePath).getPath();
         }
         return null;
+    }
+
+    public double GetValue(String funcName, String paramName)
+    {
+        NodeList data = this.doc.getElementsByTagName(funcName);
+        Element dataElement = (Element) data.item(0);
+        String value = dataElement.getElementsByTagName(paramName).item(0).getTextContent();
+        return Double.parseDouble(value);
     }
 
     public String GetOpenCVFilePath()

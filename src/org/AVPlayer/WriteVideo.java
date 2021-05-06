@@ -46,11 +46,11 @@ public class WriteVideo {
         for (int brk = 0; brk < breaks.size() - 1; brk += 2) {
             for (int frame = breaks.get(brk); frame <= breaks.get(brk + 1); frame++) {
                 try {
-                    File f = new File(inputPath + "frame" + frame + ".rgb");
+                    File f = new File(inputPath, "frame" + frame + ".rgb");
                     byte b[] = new byte[(int) f.length()];
                     FileInputStream fis = new FileInputStream(f);
                     fis.read(b);
-                    File fout = new File(outputPath + "frame" + frameCnt + ".rgb");
+                    File fout = new File(outputPath, "frame" + frameCnt + ".rgb");
                     FileOutputStream fos = new FileOutputStream(fout);
                     fos.write(b);
                     frameCnt++;
@@ -67,9 +67,9 @@ public class WriteVideo {
     }
 
     public static void main(String[] args) {
-        String rootpath = args[0];
-        String videoPath = rootpath + args[1];
-        String outputPath = args[2];
+        ConfigurationProperty cp = new ConfigurationProperty();
+        String videoPath = cp.GetFilePath(args[0], "Video");
+        String outputPath = cp.GetFilePath(args[0], "OutVideo");
         ArrayList<Integer> breaks = new ArrayList<>();
         breaks.add(0);
         breaks.add(100);

@@ -20,20 +20,6 @@ public class WeightAssignment {
         return array.get(n-1);
     }
 
-    public static int[] GetBigestN(double[] list, int n)
-    {
-        int[] bigestN = new int[n];
-        for (int k = 0; k < n; k ++)
-        {
-            int largestIndex = -1;
-            double largestScore = -1; // please set all scores as positive values
-            for (int i = 0; i < list.length; i ++)
-            {
-                if ()
-            }
-        }
-    }
-
     private void saveBreaksToFile(String fileName, ArrayList<Integer> listToWrite) 
     {
         try
@@ -54,15 +40,16 @@ public class WeightAssignment {
         }
     }
 
-    public ArrayList<Integer> getResults(String videoPath) {
+    public ArrayList<Integer> getResults(String dataName) {
+        ConfigurationProperty cp = new ConfigurationProperty();
         VideoSegmentation videoSegmentation = new VideoSegmentation();
-        videoSegmentation.getBreakPoints(videoPath);
+        videoSegmentation.getBreakPoints(cp.GetFilePath(dataName, "Video"));
 
         MotionAnalyse motionAnalyse = new MotionAnalyse();
         FrameColorAnalyse frameColorAnalyse = new FrameColorAnalyse();
         ArrayList<Integer> breakPoints = videoSegmentation.breakPoints;
         ArrayList<Integer> resultPoints = new ArrayList<>();
-        double[] motionResults = motionAnalyse.getMotionArray(breakPoints, videoPath);
+        double[] motionResults = motionAnalyse.getMotionArray(breakPoints, cp.GetFilePath(dataName, "Video"));
         Utils.displayList(motionResults);
         for (int i = 0; i < motionResults.length; i++) {
             if (motionResults[i] > Nth(motionResults, 10, breakPoints) && breakPoints.get(i+1)-breakPoints.get(i) > 100) {
@@ -79,6 +66,7 @@ public class WeightAssignment {
 
     public static void main(String[] args) {
         WeightAssignment wa = new WeightAssignment();
-        wa.getResults(Consts.meridianFrames);
+        wa.getResults(args[0]);
+
     }
 }
